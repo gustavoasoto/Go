@@ -33,7 +33,6 @@ func handleRequests() {
 }
 
 func main() {
-
 	db, err = gorm.Open("mysql",
 		"rw:password@/rsa?charset=utf8&parseTime=True&loc=Local")
 
@@ -47,7 +46,6 @@ func main() {
 	db.AutoMigrate(&Keysrsas{})
 
 	handleRequests()
-
 }
 func allKeys(w http.ResponseWriter, r *http.Request) {
 

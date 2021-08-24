@@ -46,6 +46,8 @@ func keys() (string, string) {
 	if err := ioutil.WriteFile(filename+".rsa.pub", pubPEM, 0755); err != nil {
 		panic(err)
 	}
+
 	encrypt := EncryptAes(string(keyPEM))
+
 	return string(pubPEM), encrypt
 }
