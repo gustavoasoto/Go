@@ -5,11 +5,10 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/pem"
-	"io/ioutil"
 )
 
 func keys() (string, string) {
-	filename := "key"
+	//	filename := "key"
 	bitSize := 4096
 
 	// Generate RSA key.
@@ -38,14 +37,14 @@ func keys() (string, string) {
 	)
 
 	// Write private key to file.
-	if err := ioutil.WriteFile(filename+".rsa", keyPEM, 0700); err != nil {
+	/*if err := ioutil.WriteFile(filename+".rsa", keyPEM, 0700); err != nil {
 		panic(err)
-	}
+	}*/
 
 	// Write public key to file.
-	if err := ioutil.WriteFile(filename+".rsa.pub", pubPEM, 0755); err != nil {
+	/*	if err := ioutil.WriteFile(filename+".rsa.pub", pubPEM, 0755); err != nil {
 		panic(err)
-	}
+	}*/
 
 	encrypt := EncryptAes(string(keyPEM))
 

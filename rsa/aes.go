@@ -13,14 +13,8 @@ var keyString = "3b15f7635392e136a240f50dd0ecfb542dd5913f18b3f3daa1edf5a9aecd46c
 
 func EncryptAes(stringToEncrypt string) string {
 
-	//Since the key is in string, we need to convert decode it to bytes
-	bytes := make([]byte, 32) //generate a random 32 byte key for AES-256
-	if _, err := rand.Read(bytes); err != nil {
-		panic(err.Error())
-	}
-	keyString := hex.EncodeToString(bytes)
-
 	key, _ := hex.DecodeString(keyString)
+
 	plaintext := []byte(stringToEncrypt)
 
 	//Create a new Cipher Block from the key

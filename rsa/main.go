@@ -33,6 +33,7 @@ func handleRequests() {
 }
 
 func main() {
+
 	db, err = gorm.Open("mysql",
 		"rw:password@/rsa?charset=utf8&parseTime=True&loc=Local")
 
@@ -46,6 +47,7 @@ func main() {
 	db.AutoMigrate(&Keysrsas{})
 
 	handleRequests()
+
 }
 func allKeys(w http.ResponseWriter, r *http.Request) {
 
@@ -59,13 +61,9 @@ func findById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	key := vars["id"]
 
-	fmt.Fprintf(w, "Key: "+key)
-	keysrsas := []Keysrsas{}
+	keysrsas := findKeyname(w, key)
 	db.First(&keysrsas, "keyname = ?", key)
-	if len(keysrsas) == 0 {
-
-		json.NewEncoder(w).Encode("Don't Found")
-	} else {
+	if len(keysrsas) != 0 {
 		json.NewEncoder(w).Encode(keysrsas)
 	}
 }
@@ -74,19 +72,25 @@ func decryptPrivateKey(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	key := vars["id"]
 
-	fmt.Fprintf(w, "Key: "+key+" ")
-	keysrsas := []Keysrsas{}
-	db.First(&keysrsas, "keyname = ?", key)
+	keysrsas := findKeyname(w, key)
 
-	if len(keysrsas) == 0 {
-
-		json.NewEncoder(w).Encode("Don't Found")
-	} else {
+	if len(keysrsas) != 0 {
 		privatekey := keysrsas[0].Privatekey
-		decrypt := decryptAes(privatekey)
-		keysrsas[0].Privatekey = decrypt
+		decryptsa := decryptAes(privatekey)
+		keysrsas[0].Privatekey = (decryptsa)
 		json.NewEncoder(w).Encode(keysrsas)
 	}
+}
+
+func findKeyname(w http.ResponseWriter, keyname string) []Keysrsas {
+	keysrsas := []Keysrsas{}
+	db.First(&keysrsas, "keyname = ?", keyname)
+	if len(keysrsas) == 0 {
+		keysrsa := Keysrsas{}
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(keysrsa)
+	}
+	return keysrsas
 }
 
 func homePage(w http.ResponseWriter, r *http.Request) {
