@@ -26,9 +26,9 @@ func handleRequests() {
 	myRouter := mux.NewRouter().StrictSlash(true)
 	myRouter.HandleFunc("/", homePage)
 	myRouter.HandleFunc("/keys", allKeys).Methods("GET")
-	myRouter.HandleFunc("/keys/{id}", findById).Methods("GET")
-	myRouter.HandleFunc("/decrypt/{id}", decryptPrivateKey).Methods("GET")
-	myRouter.HandleFunc("/new-key", createNewKeysrsas).Methods("POST")
+	myRouter.HandleFunc("/key/{id}", findById).Methods("GET")
+	myRouter.HandleFunc("/key/decrypt/{id}", decryptPrivateKey).Methods("GET")
+	myRouter.HandleFunc("/key", createNewKeysrsas).Methods("POST")
 	log.Fatal(http.ListenAndServe(":8083", myRouter))
 }
 
