@@ -4,13 +4,13 @@ Create an endpoint that allows you to list the keys and search by name
 Create an endpoint that receives a plain text and the ID of the key, and returns the encrypted text with the key
 Create an endpoint that receives the encrypted text and key ID, and returns the plain text
 
-generate the swagger
+## Generate the swagger
 
 install
 
 go get -u github.com/go-swagger/go-swagger/cmd/swagger
 
-execute the command
+## execute the command
 
 swagger generate spec -o ./swagger.json --scan-models
 
