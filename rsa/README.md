@@ -5,10 +5,13 @@ Create an endpoint that receives a plain text and the ID of the key, and returns
 Create an endpoint that receives the encrypted text and key ID, and returns the plain text
 
 generate the swagger
+
 install
+
 go get -u github.com/go-swagger/go-swagger/cmd/swagger
 
 execute the command
+
 swagger generate spec -o ./swagger.json --scan-models
 
 the file swagger.json upload in 
