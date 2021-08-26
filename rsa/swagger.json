@@ -1,0 +1,131 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Lab Web Development Go",
+    "title": "Generate Key Public and Private",
+    "version": "0.1.0"
+  },
+  "host": "localhost:8083",
+  "basePath": "/",
+  "paths": {
+    "/key": {
+      "post": {
+        "description": "Save public and private key  keyname",
+        "tags": [
+          "createNewKey"
+        ],
+        "operationId": "keysrsas",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "description": "The body to create a thing",
+            "name": "keyname",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Keysrsas",
+            "schema": {
+              "$ref": "#/definitions/Keysrsas"
+            }
+          }
+        }
+      }
+    },
+    "/key/decrypt/{id}": {
+      "get": {
+        "description": "Obtain keys and Decrypt private key by  keyname",
+        "tags": [
+          "decryptPrivateKey"
+        ],
+        "operationId": "id",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Keyname",
+            "description": "name of the keys",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Keysrsas",
+            "schema": {
+              "$ref": "#/definitions/Keysrsas"
+            }
+          },
+          "404": {
+            "description": "Keysrsas",
+            "schema": {
+              "$ref": "#/definitions/Keysrsas"
+            }
+          }
+        }
+      }
+    },
+    "/key/{keyname}": {
+      "get": {
+        "description": "Obtain  keys by keyname",
+        "tags": [
+          "findById"
+        ],
+        "operationId": "keyname",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Keyname",
+            "description": "name of the keys",
+            "name": "keyname",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Keysrsas",
+            "schema": {
+              "$ref": "#/definitions/Keysrsas"
+            }
+          },
+          "404": {
+            "description": "Keysrsas",
+            "schema": {
+              "$ref": "#/definitions/Keysrsas"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Keysrsas": {
+      "description": "Structure keys private and public",
+      "type": "object",
+      "title": "Keysrsas",
+      "required": [
+        "Keyname"
+      ],
+      "properties": {
+        "Keyname": {
+          "description": "name of the keys",
+          "type": "string",
+          "example": "peterparker"
+        },
+        "Privatekey": {
+          "type": "string"
+        },
+        "Publickey": {
+          "type": "string"
+        }
+      },
+      "x-go-package": "example.com/rsa"
+    }
+  }
+}
