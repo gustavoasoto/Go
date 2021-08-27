@@ -172,6 +172,7 @@ func check(e error) {
 // Save public and private key  keyname
 // Responses:
 // - 201: Keysrsas
+// - 400:
 func createNewKeysrsas(w http.ResponseWriter, r *http.Request) {
 	// get the body of our POST request
 	// return the string response containing the request body
