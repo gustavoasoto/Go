@@ -183,10 +183,14 @@ func createNewKeysrsas(w http.ResponseWriter, r *http.Request) {
 
 	keysrsa.Privatekey = priv
 	keysrsa.Publickey = publ
-
-	db.Create(&keysrsa)
-
-	fmt.Println("Endpoint Hit: Creating New key")
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(keysrsa)
+	keysrs := findKeyname(w, keysrsa.Keyname)
+	if len(keysrs) != 0 {
+		fmt.Println("Endpoint Hit: Key Exists")
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode("Key Exists")
+	} else {
+		db.Create(&keysrsa)
+		w.WriteHeader(http.StatusCreated)
+		json.NewEncoder(w).Encode(keysrsa)
+	}
 }
